@@ -2,6 +2,8 @@
 
 Simple WhatsApp Bot
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Nurutomo/wabot-aq)
+
 ## FOR TERMUX/UBUNTU/SSH USER
 
 ```bash
@@ -13,6 +15,7 @@ apt install imagemagick -y
 git clone https://github.com/Nurutomo/wabot-aq
 cd wabot-aq
 npm install
+npm update
 ```
 
 ---------
@@ -28,6 +31,7 @@ npm install
 git clone https://github.com/Nurutomo/wabot-aq
 cd wabot-aq
 npm install
+npm update
 ```
 
 ---------
@@ -55,6 +59,34 @@ Set prefix
 
 Used for [heroku](https://heroku.com/) or scan through website
 
+### `--db <json-server-url>`
+
+Use external db instead of local db, 
+Example Server `https://json-server.nurutomo.repl.co/`
+Code: `https://repl.it/@Nurutomo/json-server`
+
+`node . --db 'https://json-server.nurutomo.repl.co/'`
+
+The server should have like this specification
+
+#### GET
+
+```http
+GET /
+Accept: application/json
+```
+
+#### POST
+
+```http
+POST /
+Content-Type: application/json
+
+{
+ data: {}
+}
+```
+
 ### `--big-qr`
 
 If small qr unicode doesn't support
@@ -68,6 +100,10 @@ Enables restricted plugins (which can lead your number to be **banned** if used 
 ### `--img`
 
 Enable image inspector through terminal
+
+### `--autoread`
+
+If enabled, all incoming messages will be marked as read
 
 ### `--nyimak`
 
@@ -98,3 +134,6 @@ conn.logger.level = 'debug'
 #### Most Active Contributor : [`ariffb25`](https://github.com/ariffb25)
 
 #### 2nd Most Active Contributor: [`Ftwrr`](https://github.com/Ftwrr)
+
+
+NOTE: This project will not maintained after `27 June 2021`, that means no update. Feel free to anyone to continue this project :)
