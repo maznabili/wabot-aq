@@ -85,6 +85,9 @@ module.exports = {
       }
       if (opts['nyimak']) return
       if (!m.fromMe && opts['self']) return
+      if (opts['pconly'] && m.chat.endsWith('g.us')) return
+      if (opts['gconly'] && !m.chat.endsWith('g.us')) return
+      if (opts['swonly'] && m.chat !== 'status@broadcast') return
       if (typeof m.text !== 'string') m.text = ''
       for (let name in global.plugins) {
         let plugin = global.plugins[name]
@@ -224,6 +227,10 @@ module.exports = {
             this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
             continue // Limit habis
           }
+          if (plugin.level > _user.level) {
+            this.reply(m.chat, `diperlukan level ${plugin.level} untuk menggunakan perintah ini. Level kamu ${_user.level}`, m)
+            continue // If the level has not been reached
+          }
           let extra = {
             match,
             usedPrefix,
@@ -309,7 +316,7 @@ module.exports = {
       } catch (e) {
         console.log(m, m.quoted, e)
       }
-      if (opts['autoread']) await this.chatRead(m.chat).catch(() => {})
+      if (opts['autoread']) await this.chatRead(m.chat).catch(() => { })
     }
   },
   async participantsUpdate({ jid, participants, action }) {
