@@ -69,6 +69,7 @@ module.exports = {
           if (!('sDemote' in chat)) chat.sDemote = ''
           if (!('delete' in chat)) chat.delete = true
           if (!('antiLink' in chat)) chat.antiLink = false
+          if (!('viewonce' in chat)) chat.viewonce = false
         } else global.db.data.chats[m.chat] = {
           isBanned: false,
           welcome: false,
@@ -79,6 +80,7 @@ module.exports = {
           sDemote: '',
           delete: true,
           antiLink: false,
+          viewonce: false,
         }
       } catch (e) {
         console.error(e)
@@ -259,7 +261,7 @@ module.exports = {
             m.error = e
             console.error(e)
             if (e) {
-              let text = util.format(e)
+              let text = util.format(e.message ? e.message : e)
               for (let key of Object.values(global.APIKeys))
                 text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
               m.reply(text)
